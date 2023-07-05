@@ -170,8 +170,8 @@ setreadonly(GameMetaTable, true)
 })
 
 local Button = MainTab:CreateButton({
-   Name = "测试",
+   Name = "透视",
    Callback = function()
-   -- The function that takes place when the button is pressed
+   loadstring(game:HttpGet('https://raw.githubusercontent.com/CX5200/ESP/main/esp'))()
    end,
 })
