@@ -169,4 +169,8 @@ setreadonly(GameMetaTable, true)
    end,
 })
 
-
+local Button = MainTab:CreateButton({
+   Name = "透视",
+   Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/CX5200/ESP/main/esp"))()
+})
