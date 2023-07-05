@@ -26,7 +26,7 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-local MainTab = Window:CreateTab("功能", nil) 
+local MainTab = Window:CreateTab("🎲主页🎲", nil) 
 local MainSection = MainTab:CreateSection("Main")
 
 Rayfield:Notify({
@@ -44,7 +44,11 @@ Rayfield:Notify({
 },
 })
 
-local Button = MainTab:CreateButton({
+
+
+local renwuTab = Window:CreateTab("🛡人物功能🛡", nil) -- 第二栏位
+
+local Button = renwuTab:CreateButton({
    Name = "无限跳跃(跳太高会死)",
    Callback = function()
  local InfiniteJumpEnabled = true
@@ -56,7 +60,7 @@ end)
    end,
 })
 
-local Button = MainTab:CreateButton({
+local Button = renwuTab:CreateButton({
    Name = "防摔(配合无限跳)",
    Callback = function()
 local gamemt = getrawmetatable(game)
@@ -75,7 +79,7 @@ end)
    end,
 })
 
-local Button = MainTab:CreateButton({
+local Button = renwuTab:CreateButton({
    Name = "快速拾取(死后重开)",
    Callback = function()
 local v15 = require(game:GetService("Workspace")[game.Players.LocalPlayer.Name].ContextActions.ContextMain);
@@ -91,8 +95,119 @@ SkinAnimalLength = 0.1
    end,
 })
 
-local Button = MainTab:CreateButton({
-   Name = "超级枪械",
+local Button = renwuTab:CreateButton({
+   Name = "速度(50)菜鸟",
+   Callback = function()
+   local gamemt = getrawmetatable(game)
+local oldNc = gamemt.__namecall
+setreadonly(gamemt, false)
+
+gamemt.__namecall = newcclosure(function(...)
+  if (getnamecallmethod() == 'Kick') then return nil end
+  return oldNc(...)
+end)
+
+local lp = game:GetService('Players').LocalPlayer
+local hum = lp.Character.Humanoid
+
+local function changeStats()
+  hum.WalkSpeed = 100
+  hum.JumpPower = 50
+end
+
+changeStats()
+
+hum:GetPropertyChangedSignal('WalkSpeed'):Connect(changeStats)
+hum:GetPropertyChangedSignal('JumpPower'):Connect(changeStats)
+   end,
+})
+
+local Button = renwuTab:CreateButton({
+   Name = "速度(100)入门",
+   Callback = function()
+   local gamemt = getrawmetatable(game)
+local oldNc = gamemt.__namecall
+setreadonly(gamemt, false)
+
+gamemt.__namecall = newcclosure(function(...)
+  if (getnamecallmethod() == 'Kick') then return nil end
+  return oldNc(...)
+end)
+
+local lp = game:GetService('Players').LocalPlayer
+local hum = lp.Character.Humanoid
+
+local function changeStats()
+  hum.WalkSpeed = 100
+  hum.JumpPower = 50
+end
+
+changeStats()
+
+hum:GetPropertyChangedSignal('WalkSpeed'):Connect(changeStats)
+hum:GetPropertyChangedSignal('JumpPower'):Connect(changeStats)
+   end,
+})
+
+local Button = renwuTab:CreateButton({
+   Name = "速度(500)普通",
+   Callback = function()
+   local gamemt = getrawmetatable(game)
+local oldNc = gamemt.__namecall
+setreadonly(gamemt, false)
+
+gamemt.__namecall = newcclosure(function(...)
+  if (getnamecallmethod() == 'Kick') then return nil end
+  return oldNc(...)
+end)
+
+local lp = game:GetService('Players').LocalPlayer
+local hum = lp.Character.Humanoid
+
+local function changeStats()
+  hum.WalkSpeed = 500
+  hum.JumpPower = 50
+end
+
+changeStats()
+
+hum:GetPropertyChangedSignal('WalkSpeed'):Connect(changeStats)
+hum:GetPropertyChangedSignal('JumpPower'):Connect(changeStats)
+   end,
+})
+
+local Button = renwuTab:CreateButton({
+   Name = "速度(1000)大佬",
+   Callback = function()
+   local gamemt = getrawmetatable(game)
+local oldNc = gamemt.__namecall
+setreadonly(gamemt, false)
+
+gamemt.__namecall = newcclosure(function(...)
+  if (getnamecallmethod() == 'Kick') then return nil end
+  return oldNc(...)
+end)
+
+local lp = game:GetService('Players').LocalPlayer
+local hum = lp.Character.Humanoid
+
+local function changeStats()
+  hum.WalkSpeed = 1000
+  hum.JumpPower = 50
+end
+
+changeStats()
+
+hum:GetPropertyChangedSignal('WalkSpeed'):Connect(changeStats)
+hum:GetPropertyChangedSignal('JumpPower'):Connect(changeStats)
+   end,
+})
+
+
+local qiangxieTab = Window:CreateTab("🎱武器功能🎱", nil) -- 枪械
+
+local Button = qiangxieTab:CreateButton({
+   Name = "超级枪械(无后坐力)",
    Callback = function()
 local mods = {
     Damage = 100, 
@@ -119,8 +234,8 @@ end
    end,
 })
 
-local Button = MainTab:CreateButton({
-   Name = "魔法子弹",
+local Button = qiangxieTab:CreateButton({
+   Name = "魔法子弹(大范围,有朋友在服务器的话,不建议开它)",
    Callback = function()
 local Camera = game:GetService("Workspace").CurrentCamera
 local Players = game:GetService("Players")
@@ -169,7 +284,26 @@ setreadonly(GameMetaTable, true)
    end,
 })
 
-local Button = MainTab:CreateButton({
+
+local qitaTab = Window:CreateTab("🎟其他功能🎟", nil) -- 其他功能
+
+
+local Button = qitaTab:CreateButton({
+   Name = "管理员指令",
+   Callback = function()
+   loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+   end,
+})
+
+
+local Button = qitaTab:CreateButton({
+   Name = "挂机(防20分钟踢出)",
+   Callback = function()
+   loadstring(game:HttpGet('https://raw.githubusercontent.com/CX5200/afk/main/afk'))()
+   end,
+})
+
+local Button = qitaTab:CreateButton({
    Name = "透视",
    Callback = function()
    loadstring(game:HttpGet('https://raw.githubusercontent.com/CX5200/ESP/main/esp'))()
