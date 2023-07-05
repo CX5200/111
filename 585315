@@ -1,0 +1,172 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "一路向西",
+   LoadingTitle = "CX Hub",
+   LoadingSubtitle = "by 01K",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil, 
+      FileName = "CX 一路向西"
+   },
+   Discord = {
+      Enabled = true,
+      Invite = "sYvY4MkUEM", 
+      RememberJoins = true 
+   },
+   KeySystem = true, 
+   KeySettings = {
+      Title = "黑猫卡密系统",
+      Subtitle = "(不定期更新卡密，为防没进群的)",
+      Note = "进QQ群 免费获取卡密                        黑猫QQ群:881072957",
+      FileName = "请输入卡密", 
+      SaveKey = false, 
+      GrabKeyFromSite = true, 
+      Key = {"https://pastebin.com/raw/Be6Nc9F8"} 
+   }
+})
+
+local MainTab = Window:CreateTab("功能", nil) 
+local MainSection = MainTab:CreateSection("Main")
+
+Rayfield:Notify({
+   Title = "黑 猫",
+   Content = "永久免费 不收一分钱",
+   Duration = 5,
+   Image = 10007262925,
+   Actions = { 
+      Ignore = {
+         Name = "黑猫yyds",
+         Callback = function()
+         print("初夏:有的时候，做这些东西，真的会让人感到疲倦，免费写出来让你们玩,还要接受你们的谩骂与网暴(使用我脚本的人当中,没有几个人能看到这段心声)")
+      end
+   },
+},
+})
+
+local Button = MainTab:CreateButton({
+   Name = "无限跳跃(跳太高会死)",
+   Callback = function()
+ local InfiniteJumpEnabled = true
+game:GetService("UserInputService").JumpRequest:connect(function()
+if InfiniteJumpEnabled then
+game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+end
+end)
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "防摔(配合无限跳)",
+   Callback = function()
+local gamemt = getrawmetatable(game)
+local oldNc = gamemt.__namecall
+setreadonly(gamemt, false)
+
+gamemt.__namecall = newcclosure(function(self, ...)
+  if (getnamecallmethod() == 'FireServer' and self.Name == 'ChangeCharacter') then
+    local args = {...}
+    if (args[1] and args[1] == 'Damage') then
+      return nil
+    end
+  end 
+   return oldNc(self, ...)
+end)
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "快速拾取(死后重开)",
+   Callback = function()
+local v15 = require(game:GetService("Workspace")[game.Players.LocalPlayer.Name].ContextActions.ContextMain);
+v15:New({
+RobPlayerLength = 0.1, 
+FixWallLength = 0.1, 
+CrackSafeLength = 0.1, 
+RobSafeLength = 0.1, 
+RobRegisterLength = 0.1, 
+PickCellLength = 0.1, 
+SkinAnimalLength = 0.1
+}, 200, { "Get out of my shop! Outlaws are not welcome here!", "Hey, scoundrel! Get out before I call the sheriff!", "You're an outlaw! We don't serve your type here!" }, { "This here's a bandit camp! Get out!", "Get lost, cowboy!", "Are you an outlaw? Didn't think so! Scram!" });
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "超级枪械",
+   Callback = function()
+local mods = {
+    Damage = 100, 
+    FanFire = true, 
+    camShakeResist = 0, 
+    Spread = 0, 
+    prepTime = 0, 
+    equipTime = 0, 
+    MaxShots = math.huge, 
+    ReloadAnimationSpeed = 0, 
+    ReloadSpeed = 0, 
+    HipFireAccuracy = 0, 
+    ZoomAccuracy = 0, 
+    InstantFireAnimation = true
+}
+
+for _, gun in pairs(require(game:GetService("ReplicatedStorage").GunScripts.GunStats)) do
+    for prop, value in pairs(mods) do
+        if gun[prop] then
+            gun[prop] = value
+        end
+    end
+end
+   end,
+})
+
+local Button = MainTab:CreateButton({
+   Name = "魔法子弹",
+   Callback = function()
+local Camera = game:GetService("Workspace").CurrentCamera
+local Players = game:GetService("Players")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+
+local function GetClosestPlayer()
+   local ClosestPlayer = nil
+   local FarthestDistance = math.huge
+
+   for i, v in pairs(Players.GetPlayers(Players)) do
+       if v ~= LocalPlayer and v.Character and v.Character.FindFirstChild(v.Character, "HumanoidRootPart") then
+           local DistanceFromPlayer = (LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+
+           if DistanceFromPlayer < FarthestDistance then
+               FarthestDistance = DistanceFromPlayer
+               ClosestPlayer = v
+           end
+       end
+   end
+
+   if ClosestPlayer then
+       return ClosestPlayer
+   end
+end
+
+local GameMetaTable = getrawmetatable(game)
+local OldGameMetaTableNamecall = GameMetaTable.__namecall
+setreadonly(GameMetaTable, false)
+
+GameMetaTable.__namecall = newcclosure(function(object, ...)
+   local NamecallMethod = getnamecallmethod()
+   local Arguments = {...}
+
+   if tostring(NamecallMethod) == "FindPartOnRayWithIgnoreList" then
+       local ClosestPlayer = GetClosestPlayer()
+       
+       if ClosestPlayer and ClosestPlayer.Character then
+           Arguments[1] = Ray.new(Camera.CFrame.Position, (ClosestPlayer.Character.Head.Position - Camera.CFrame.Position).Unit * (Camera.CFrame.Position - ClosestPlayer.Character.Head.Position).Magnitude)
+       end
+   end
+
+   return OldGameMetaTableNamecall(object, unpack(Arguments))
+end)
+
+setreadonly(GameMetaTable, true)
+   end,
+})
+
+
